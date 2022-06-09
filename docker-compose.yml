@@ -1,0 +1,65 @@
+version: '3.8'
+services:
+  nginx.boyzcraft:
+    container_name: nginx
+    ports:
+     - 10.2.1.103:80:80
+    image: nginx:latest
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./html:/var/www/html
+      - ./log/nginx:/var/log/nginx
+    restart: always
+    networks:
+     default:
+      ipv4_address: 10.3.34.2 
+
+  dle:
+    container_name: dle
+    image: dle_php-fpm:0.2
+    volumes:
+      - ./html:/var/www/html
+      - ./log/dle.boyzcraft:/var/log
+    restart: always
+    networks:
+     default:
+      ipv4_address: 10.3.34.3
+
+
+  mysql:
+      image: mariadb
+      container_name: mysql
+      ports:
+          - 10.2.1.103:3306:3306
+      volumes:
+        - ./mysql:/var/lib/mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: pass
+        MYSQL_DATABASE: db
+        MYSQL_USER: user
+        MYSQL_PASSWORD: pass
+      restart: always
+      networks:
+       default:
+        ipv4_address: 10.3.34.4
+
+  jaeger:
+    image: jaegertracing/all-in-one
+    container_name: jaeger
+    ports:
+      - 10.2.1.103:16686:16686
+    environment:
+      - COLLECTOR_ZIPKIN_HTTP_PORT=9411
+    networks:
+     default:
+      ipv4_address: 10.3.34.5  
+networks:
+ default:
+        name: gzx_docker_dev
+        ipam:
+            driver: default
+            config:
+             - subnet: 10.3.34.0/24
+               gateway: 10.3.34.1
+               

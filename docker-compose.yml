@@ -16,11 +16,11 @@ services:
      default:
       ipv4_address: 10.3.34.2 
 
-  dle:
+  dle_php-fpm:
     build:
       context: build_dle_dockerfile/
       dockerfile: ./Dockerfile
-    container_name: dle
+    container_name: dle_php-fpm
     # image: dle_php-fpm:0.2
     volumes:
       - ./html:/var/www/html

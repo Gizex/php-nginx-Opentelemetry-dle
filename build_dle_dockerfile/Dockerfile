@@ -31,14 +31,14 @@ RUN usermod -u ${USER_ID} www-data; \
     
 
 
-ADD composer.json .
+ADD composer.json ./
 
 
 COPY docker-entrypoint.sh ./
 
-RUN chmod +x ./docker-entrypoint.sh
+RUN chmod +x ./docker-entrypoint.sh 
 
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
-EXPOSE 9000    
+EXPOSE 9000  
 CMD ["php-fpm"]

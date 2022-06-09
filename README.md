@@ -1,0 +1,1 @@
+Трассировка php и nginx запросов DLE с помощью jaeger и OTEL

@@ -21,10 +21,12 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install zip mbstring xsl pdo_mysql curl xml zip sockets bcmath
 
-# RUN set -ex; \
-#     apt-get update; \
-#     apt-get install -y --no-install-recommends libonig-dev libzip-dev unzip zlib1g-dev libxslt-dev curl libonig-dev libxml2-dev libpng-dev libcurl4 libcurl4-openssl-dev; \
-#     docker-php-ext-install mysqli mbstring xsl  gd pdo_mysql curl xml zip sockets bcmath;
+RUN curl -sSLf \
+    -o /usr/local/bin/install-php-extensions \
+    https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
+    && chmod +x /usr/local/bin/install-php-extensions \
+    && install-php-extensions xdebug opencensus
+
 
 RUN usermod -u ${USER_ID} www-data; \
     groupmod -g ${GROUP_ID} www-data; 

@@ -2,7 +2,9 @@
     "minimum-stability": "dev",
     "require":           {
       "jonahgeorge/jaeger-client-php": "*",
-      "opentracing/opentracing":"*"
+      "opentracing/opentracing":"*",
+      "opencensus/opencensus":"^0.5.2",
+      "opencensus/opencensus-exporter-jaeger": "~0.1"
     }
   }
   

@@ -12,6 +12,11 @@ if [ -z "$(ls -A /var/www/html)" ]; then
   # clearing
   rm dle.zip
   rm -rf upload
+
+  # define owner
+  chown -R www-data:www-data /var/www/html
+fi
+if [ -z "$(ls -A /var/www/html/vendor)" ]; then 
   mv composer.json /var/www/html 
   cd /var/www/html \
   && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -19,8 +24,6 @@ if [ -z "$(ls -A /var/www/html)" ]; then
   && php composer-setup.php \
   && php -r "unlink('composer-setup.php');" \
   && php composer.phar install; 
-  # define owner
   chown -R www-data:www-data /var/www/html
-fi
-
+fi 
 exec "$@"

@@ -14,7 +14,7 @@ services:
     restart: always
     networks:
      default:
-      ipv4_address: 10.3.34.2 
+      ipv4_address: 10.3.34.20 
 
   dle_php-fpm:
     build:
@@ -28,25 +28,25 @@ services:
     restart: always
     networks:
      default:
-      ipv4_address: 10.3.34.3
+      ipv4_address: 10.3.34.21
 
 
-  mysql:
-      image: mariadb
-      container_name: mysql
-      ports:
-          - 10.2.1.103:3306:3306
-      volumes:
-        - ./mysql:/var/lib/mysql
-      environment:
-        MYSQL_ROOT_PASSWORD: pass
-        MYSQL_DATABASE: db
-        MYSQL_USER: user
-        MYSQL_PASSWORD: pass
-      restart: always
-      networks:
-       default:
-        ipv4_address: 10.3.34.4
+  # mysql:
+  #     image: mariadb
+  #     container_name: mysql
+  #     ports:
+  #         - 10.2.1.103:3306:3306
+  #     volumes:
+  #       - ./mysql:/var/lib/mysql
+  #     environment:
+  #       MYSQL_ROOT_PASSWORD: pass
+  #       MYSQL_DATABASE: db
+  #       MYSQL_USER: user
+  #       MYSQL_PASSWORD: pass
+  #     restart: always
+  #     networks:
+  #      default:
+  #       ipv4_address: 10.3.34.12
 
   jaeger:
     image: jaegertracing/all-in-one
@@ -59,11 +59,14 @@ services:
      default:
       ipv4_address: 10.3.34.5  
 networks:
- default:
-        name: docker_dev
-        ipam:
-            driver: default
-            config:
-             - subnet: 10.3.34.0/24
-               gateway: 10.3.34.1
-               
+  default:
+    external: true
+    name: docker_dev
+# networks:
+#  default:
+#         name: docker_dev
+#         ipam:
+#             driver: default
+#             config:
+#              - subnet: 10.3.34.0/24
+#                gateway: 10.3.34.1
